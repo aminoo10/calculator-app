@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@700&display=swap');
+$calc-width: 35rem;
+$calc-padding: 0 1rem;
+$font-size: 32px;
+$border-radius: 10px;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Spartan', sans-serif;
+  background-color: hsl(222, 26%, 31%);
+}
+
+body {
+  font-size: $font-size;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  color: white;
+  float: left;
+}
+
+.attribution { font-size: 11px; text-align: center; }
+.attribution a { color: hsl(228, 45%, 44%); }
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+}
+.screen {
+  width: $calc-width;
+  height: 6.5rem;
+  background-color:hsl(224, 36%, 15%);
+  border-radius: $border-radius;
+  padding: $calc-padding;
+}
+
+.keypad {
+  width: $calc-width;
+  height: 31rem;
+  background-color:hsl(223, 31%, 20%); 
+  border-radius: $border-radius;
+  margin-top: 30px;
+  display: flex;
+  padding: 1rem 1rem;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.screen-text {
+  color: white;
+  float: right;
+  text-align: center;
+}
+
+button {
+  background-color: hsl(30, 25%, 89%);
+  color: hsl(221, 14%, 31%);
+  font-size: $font-size;
+  font-weight: bolder;
+  padding: 15px 32px;
+  border-radius: $border-radius;
+  border-style: none;
+  box-shadow: 0 5px hsl(28, 16%, 65%);
+  
+}
+
+.row-1, .row-2, .row-3, .row-4, .row-5 {
+  display: flex;
+  justify-content: space-around;
+  
+}
+
+.row-1,.row-2,.row-3,.row-4 {
+  button {
+    width: 20%;
+  }
+}
+
+.row-5 {
+  button {
+    width: 45%;
+  }
+}
+
+
+#var-1 {
+  background-color:hsl(225, 21%, 49%); 
+  box-shadow: 0 5px hsl(224, 28%, 35%);
+}
+
+#var-2 {
+  background-color: hsl(6, 63%, 50%);
+  box-shadow: 0 5px hsl(6, 70%, 34%);
+
+}
+
+#var-1, #var-2 {
+  color: white;
+}
+
