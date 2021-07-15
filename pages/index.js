@@ -1,6 +1,36 @@
 import Head from 'next/head'
+import { useState } from 'react';
+
 
 export default function Home() {
+
+const [result, setResult] = useState('');
+
+const handleClick = (number) => {
+  setResult(result + number);
+}
+
+const resetCalc = () => {
+  setResult('');
+}
+
+const handleClickZero = () => {
+  if (result !== '') setResult(result + 0)
+}
+
+const handleClickDecimal = () => {
+  if (!result.includes(".") && result !== '') setResult(result + ".")
+}
+
+const delCalc = () => {
+  setResult(result.slice(0,-1));
+}
+
+const displayResult = () => {
+  return result;
+}
+
+
   return (
     <div>
       <Head>
@@ -12,39 +42,39 @@ export default function Home() {
       <main className="calculator">
         <h1>calc</h1>
         <div className="screen">
-          <p className="screen-text">123456789</p>
+          <p className="screen-text">{result}</p>
         </div>
         <div className="keypad">
           <div className="row-1">
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
-            <button id="var-1">DEL</button>
+            <button value="7" onClick={e => handleClick(e.target.value)}>7</button>
+            <button value="8" onClick={e => handleClick(e.target.value)}>8</button>
+            <button value="9" onClick={e => handleClick(e.target.value)}>9</button>
+            <button id="var-1" onClick={delCalc}>DEL</button>
           </div>
           
           <div className="row-2">
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
+            <button value="4" onClick={e => handleClick(e.target.value)}>4</button>
+            <button value="5" onClick={e => handleClick(e.target.value)}>5</button>
+            <button value="6" onClick={e => handleClick(e.target.value)}>6</button>
             <button>+</button>
           </div>
 
           <div className="row-3">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
+            <button value="1" onClick={e => handleClick(e.target.value)}>1</button>
+            <button value="2" onClick={e => handleClick(e.target.value)}>2</button>
+            <button value="3" onClick={e => handleClick(e.target.value)}>3</button>
             <button>-</button>
           </div>
 
           <div className="row-4">
-            <button>.</button>
-            <button>0</button>
+            <button onClick={handleClickDecimal}>.</button>
+            <button onClick={handleClickZero}>0</button>
             <button>/</button>
             <button>x</button>
           </div>
           
           <div className="row-5">
-            <button id="var-1">RESET</button>
+            <button id="var-1" onClick={resetCalc}>RESET</button>
             <button id="var-2">=</button>
 
           </div>

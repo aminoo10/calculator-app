@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Spartan:wght@700&display=swap');
-$calc-width: 35rem;
+$calc-width: 30rem;
 $calc-padding: 0 1rem;
 $font-size: 32px;
 $border-radius: 10px;
@@ -75,7 +75,13 @@ button {
   border-radius: $border-radius;
   border-style: none;
   box-shadow: 0 5px hsl(28, 16%, 65%);
-  
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
 }
 
 .row-1, .row-2, .row-3, .row-4, .row-5 {
@@ -100,6 +106,7 @@ button {
 #var-1 {
   background-color:hsl(225, 21%, 49%); 
   box-shadow: 0 5px hsl(224, 28%, 35%);
+  font-size: 16px;
 }
 
 #var-2 {
@@ -110,5 +117,14 @@ button {
 
 #var-1, #var-2 {
   color: white;
+}
+
+#var-1, #var-2, button {
+
+  &:active {
+    transform: translateY(4px);
+    box-shadow: none;
+  }
+
 }
 
