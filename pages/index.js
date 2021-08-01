@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 export default function Home() {
 
-// let operand = ''
 const [oldNum, setOldNum] = useState('');
 const [operand, setOperand] = useState('');
 const [result, setResult] = useState(''); 
@@ -160,11 +159,11 @@ how to make a function like pressing operands constantly without pressing equals
       operand pressed -> check to see if operand is pressed by seeing if oldNum is not blank.
       if oldNum is blank -> set oldNum to the value of result and clear result.
       if oldNum is NOT blank -> do what equals would do: add the result to oldNum, keep result blank. 
-
-
-
-
 */
+
+const onChangeValue = (e) => {
+  console.log(e.target.value);
+}
 
   return (
     <div>
@@ -175,7 +174,20 @@ how to make a function like pressing operands constantly without pressing equals
       </Head>
 
       <main className="calculator">
-        <h1>calc</h1>
+        <header className="calc-header">
+          <h1>calc</h1>
+          <div className="theme-changer">
+            <span>THEME</span>
+            <div className="radio-toolbar" onChange={onChangeValue}>
+              <input type="radio" id="radio1" name="radios" value="1" defaultChecked/>
+              {/* <label htmlFor="radio1">1</label> */}
+              <input type="radio" id="radio2" name="radios" value="2"/>
+              {/* <label htmlFor="radio2">2</label> */}
+              <input type="radio" id="radio3" name="radios" value="3"/>
+              {/* <label htmlFor="radio3">3</label> */}
+            </div>
+          </div>
+        </header>
         <div className="screen">
           {!result && <p className="screen-text">{oldNum}</p>}
           {result && <p className="screen-text">{result}</p>}
