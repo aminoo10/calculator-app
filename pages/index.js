@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { useState } from 'react';
+import RadioButton from '../component/RadioButton';
 
 
 export default function Home() {
@@ -88,20 +89,7 @@ const calculate = (op) => {
     }
   } 
 }
-// helper methods to check whether these two values are populated
-
-// const resultsPresent = () => {
-//   if (result !== '' || result !== '.' ) {
-//     return true;
-//   } else return false;
-// }
-
-// const oldNumPresent = () => {
-//   if (oldNum !== '' || oldNum !== '.' ) {
-//     return true;
-//   } else return false;
-
-// }
+// helper method to check whether the two values are populated
 
 const numberPresent = (value) => {
   let bool = false;
@@ -119,7 +107,6 @@ const add = (equals) => {
   if (equals) {
     setDisplayResult(parseFloat(oldNum) + parseFloat(result));
   } else setOldNum(parseFloat(oldNum) + parseFloat(result));
-  
 }
 
 const sub = (equals) => {
@@ -178,12 +165,34 @@ const onChangeValue = (e) => {
           <h1>calc</h1>
           <div className="theme-changer">
             <span>THEME</span>
-            <div className="radio-toolbar" onChange={onChangeValue}>
-              <input type="radio" id="radio1" name="radios" value="1" defaultChecked/>
-              {/* <label htmlFor="radio1">1</label> */}
-              <input type="radio" id="radio2" name="radios" value="2"/>
+            <div className="radio" onChange={onChangeValue}>
+            {/* <RadioButton
+                id="radio1"
+                isSelected={onChangeValue}
+                label="1"
+                value="1"
+                defaultChecked
+              />
+
+            <RadioButton
+                id="radio2"
+                isSelected={onChangeValue}
+                label="2"
+                value="2"
+              />
+
+            <RadioButton
+                id="radio3"
+                isSelected={onChangeValue}
+                label="3"
+                value="3"
+              />
+ */}
+              {/* <input type="radio" id="radio1" name="radios" value="1" className="radio__input" defaultChecked/>
+              <div className="radio-btn-container"></div> */}
+              {/* <input type="radio" id="radio2" name="radios" value="2"/> */}
               {/* <label htmlFor="radio2">2</label> */}
-              <input type="radio" id="radio3" name="radios" value="3"/>
+              {/* <input type="radio" id="radio3" name="radios" value="3"/> */}
               {/* <label htmlFor="radio3">3</label> */}
             </div>
           </div>
@@ -232,8 +241,8 @@ const onChangeValue = (e) => {
       </main>
 
       <footer className="attribution">
-        Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-        Coded by <a href="#">Ash</a>.
+        Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank" rel="noreferrer">Frontend Mentor</a>. 
+        Coded by <a href="https://minoo.netlify.app/" target="_blank" rel="noreferrer">Ash</a>.
       </footer>
     </div>
   )

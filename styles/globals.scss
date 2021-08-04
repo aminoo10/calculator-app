@@ -16,7 +16,6 @@ $key-bg: hsl(30, 25%, 89%);
 $key-shadow: hsl(28, 16%, 65%);
 $text-color: hsl(221, 14%, 31%);
 
-
 html,
 body {
   padding: 0;
@@ -73,14 +72,15 @@ header {
   }
 }
 
-.radio-toolbar {
+.radio {
   background-color: $keypad-bg;
   border-radius: 34px;
   height: 24px;
   
-  input {
+  &__input {
     margin-top: 5px;
     margin-right: 5px;
+
   }
   
 }
