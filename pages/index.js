@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import { useState } from 'react';
-import RadioButton from '../component/RadioButton';
 
 
 export default function Home() {
@@ -9,12 +8,26 @@ const [oldNum, setOldNum] = useState('');
 const [operand, setOperand] = useState('');
 const [result, setResult] = useState(''); 
 const [displayResult, setDisplayResult] = useState(''); //this is only for when equals is used, so we can clear oldNum and result, and still show the value.
-
-//conditional rendering for display number: if result is blank, use oldNum. otherwise always use result.
 const [opPressed, setOpPressed] = useState(false);
+const [themeState, setThemeState] = useState(1);
+
+// const handleOverflow = () => {
+//   if (displayResult.length > 19) {
+//     setDisplayResult('OVERFLOW');
+//   } else if (oldNum.length > 19)  {
+//     setOldNum('OVERFLOW');
+//   }
+// }
+
 
 const handleClick = (number) => {
-  setResult(result + number);
+  if(result.length < 18) {
+    setResult(result + number);
+  }
+}
+
+const handleClickZero = () => {
+  if (result !== '' && result.length < 18) setResult(result + 0)
 }
 
 const resetCalc = () => {
@@ -24,9 +37,6 @@ const resetCalc = () => {
   setOpPressed(false);
 }
 
-const handleClickZero = () => {
-  if (result !== '') setResult(result + 0)
-}
 
 const handleClickDecimal = () => {
   if (!result.includes(".")) setResult(result + ".")
@@ -63,8 +73,8 @@ const handleEquals = () => {
 
 const calculate = (op) => {
   if (numberPresent(result) || numberPresent(displayResult)) { //cannot do operations initially without there being two values populated.
-    if (!opPressed) {
-      if (numberPresent(displayResult) && !numberPresent(result)){
+    if (!opPressed) { //no operator was pressed recently
+      if (numberPresent(displayResult) && !numberPresent(result)){ //check to see if we have these numbers present/not present before using an operator
         setOldNum(displayResult)
       } else setOldNum(result);
 
@@ -98,9 +108,6 @@ const numberPresent = (value) => {
   } 
   return bool;
 }
-
-
-
 
 //if argument is set to one thing it will set the display number, if its not set, it will display to oldNum.
 const add = (equals) => {
@@ -148,8 +155,9 @@ how to make a function like pressing operands constantly without pressing equals
       if oldNum is NOT blank -> do what equals would do: add the result to oldNum, keep result blank. 
 */
 
-const onChangeValue = (e) => {
-  console.log(e.target.value);
+const themeStateHandler = (e) => {
+  setThemeState(e);
+  console.log(e);
 }
 
   return (
@@ -163,77 +171,58 @@ const onChangeValue = (e) => {
       <main className="calculator">
         <header className="calc-header">
           <h1>calc</h1>
-          <div className="theme-changer">
+          <div className="theme">
             <span>THEME</span>
-            <div className="radio" onChange={onChangeValue}>
-            {/* <RadioButton
-                id="radio1"
-                isSelected={onChangeValue}
-                label="1"
-                value="1"
-                defaultChecked
-              />
+            <div className="theme-buttons">
+              {themeState!=1 && <button value={1} className="unselected" onClick={e => themeStateHandler(e.target.value)}></button>}
+              {themeState==1 && <button value={1} onClick={e => themeStateHandler(e.target.value)}></button>}
 
-            <RadioButton
-                id="radio2"
-                isSelected={onChangeValue}
-                label="2"
-                value="2"
-              />
+              {themeState!=2 && <button value={2} className="unselected" onClick={e => themeStateHandler(e.target.value)}></button>}
+              {themeState==2 && <button value={2} onClick={e => themeStateHandler(e.target.value)}></button>}
 
-            <RadioButton
-                id="radio3"
-                isSelected={onChangeValue}
-                label="3"
-                value="3"
-              />
- */}
-              {/* <input type="radio" id="radio1" name="radios" value="1" className="radio__input" defaultChecked/>
-              <div className="radio-btn-container"></div> */}
-              {/* <input type="radio" id="radio2" name="radios" value="2"/> */}
-              {/* <label htmlFor="radio2">2</label> */}
-              {/* <input type="radio" id="radio3" name="radios" value="3"/> */}
-              {/* <label htmlFor="radio3">3</label> */}
+              {themeState!=3 && <button value={3} className="unselected" onClick={e => themeStateHandler(e.target.value)}></button>}
+              {themeState==3 &&<button value={3} onClick={e => themeStateHandler(e.target.value)}></button>}
+
             </div>
           </div>
         </header>
         <div className="screen">
           {!result && <p className="screen-text">{oldNum}</p>}
           {result && <p className="screen-text">{result}</p>}
-          {!oldNum && !result && <p className="screen-text">{displayResult}</p> }
+          {!oldNum && !result && <p className="screen-text">{displayResult}</p>}
         </div>
         <div className="keypad">
           <div className="row-1">
-            <button value="7" onClick={e => handleClick(e.target.value)}>7</button>
-            <button value="8" onClick={e => handleClick(e.target.value)}>8</button>
-            <button value="9" onClick={e => handleClick(e.target.value)}>9</button>
-            <button id="var-1" onClick={delCalc}>DEL</button>
+            <button className="calc-buttons" value="7" onClick={e => handleClick(e.target.value)}>7</button>
+            <button className="calc-buttons" value="8" onClick={e => handleClick(e.target.value)}>8</button>
+            <button className="calc-buttons" value="9" onClick={e => handleClick(e.target.value)}>9</button>
+            <button className="calc-buttons" id="var-1" onClick={delCalc}>DEL</button>
           </div>
           
           <div className="row-2">
-            <button value="4" onClick={e => handleClick(e.target.value)}>4</button>
-            <button value="5" onClick={e => handleClick(e.target.value)}>5</button>
-            <button value="6" onClick={e => handleClick(e.target.value)}>6</button>
-            <button value="+" onClick={e => calculate(e.target.value)}>+</button>
+            <button className="calc-buttons" value="4" onClick={e => handleClick(e.target.value)}>4</button>
+            <button className="calc-buttons" value="5" onClick={e => handleClick(e.target.value)}>5</button>
+            <button className="calc-buttons" value="6" onClick={e => handleClick(e.target.value)}>6</button>
+            <button className="calc-buttons" value="+" onClick={e => calculate(e.target.value)}>+</button>
           </div>
 
           <div className="row-3">
-            <button value="1" onClick={e => handleClick(e.target.value)}>1</button>
-            <button value="2" onClick={e => handleClick(e.target.value)}>2</button>
-            <button value="3" onClick={e => handleClick(e.target.value)}>3</button>
-            <button value="-" onClick={e => calculate(e.target.value)}>-</button>
+            <button className="calc-buttons" value="1" onClick={e => handleClick(e.target.value)}>1</button>
+            <button className="calc-buttons" value="2" onClick={e => handleClick(e.target.value)}>2</button>
+            <button className="calc-buttons" value="3" onClick={e => handleClick(e.target.value)}>3</button>
+            <button className="calc-buttons" value="-" onClick={e => calculate(e.target.value)}>-</button>
           </div>
 
           <div className="row-4">
-            <button onClick={handleClickDecimal}>.</button>
-            <button onClick={handleClickZero}>0</button>
-            <button value="/" onClick={e => calculate(e.target.value)}>/</button>
-            <button value="x" onClick={e => calculate(e.target.value)}>x</button>
+            <button className="calc-buttons" onClick={handleClickDecimal}>.</button>
+            <button className="calc-buttons" onClick={handleClickZero}>0</button>
+            <button className="calc-buttons" value="/" onClick={e => calculate(e.target.value)}>/</button>
+            <button className="calc-buttons" value="x" onClick={e => calculate(e.target.value)}>x</button>
           </div>
           
           <div className="row-5">
-            <button id="var-1" onClick={resetCalc}>RESET</button>
-            <button id="var-2" onClick={handleEquals}>=</button>
+            <button className="calc-buttons" id="var-1" onClick={resetCalc}>RESET</button>
+            <button className="calc-buttons" id="var-2" onClick={handleEquals}>=</button>
 
           </div>
 
